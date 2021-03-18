@@ -1,5 +1,35 @@
 <template>
   <div class="container">
+    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form-group
+        id="input-group-1"
+        label="Email address:"
+        label-for="input-1"
+        description="We'll never share your email with anyone else."
+      >
+        <b-form-input
+          id="input-1"
+          v-model="form.email"
+          type="email"
+          placeholder="Enter email"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+        <b-form-input
+          id="input-2"
+          v-model="form.name"
+          placeholder="Enter name"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
+    </b-form>
+    <br />
+
     <h1>Log in with Google</h1>
     <b-button class="mt-2" variant="success"
       ><b-icon icon="google" @click="google" style="font-size: 100px"
@@ -14,6 +44,15 @@ import firebase from "firebase/app";
 import { auth } from "@/plugins/firebaseConfig.js";
 import { db } from "@/plugins/firebaseConfig.js";
 export default {
+  data() {
+    return {
+      form: {
+        email: "",
+        name: ""
+      },
+      show: true
+    };
+  },
   methods: {
     onSubmit(event) {
       event.preventDefault();
